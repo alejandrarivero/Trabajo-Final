@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int contador;
+        double montomayor;
         double montoporsucursal;
         double precioproducto;
         int producto;
@@ -17,6 +18,7 @@ public class Main {
         double total;
         double unidades;
         int vendedor;
+        int vendedorconmayorventa;
         String vendedor_matrix[];
         double ventas[][];
         // Se declara matriz de datos de 5 vendedores.
@@ -77,10 +79,24 @@ public class Main {
             vendedor = sc.nextInt();
         }
         System.out.println("Se termino el ingreso de datos");
+        System.out.println("Escriba el nombre de la sucursal para obtener su mejor vendedor");
+        sucursal = sc.nextInt();
         System.out.println("Generando indicador");
-        System.out.println("Vendedor   "+sucursal_matrix[0]+"  "+sucursal_matrix[1]+"  "+sucursal_matrix[2]+"  "+sucursal_matrix[3]);
+        montomayor = 0;
+        vendedorconmayorventa = 0;
+        // Recorremos el arreglo de vendedores
         for (contador=0;contador<=4;contador++) {
-            System.out.println(vendedor_matrix[contador]+" | "+ventas[contador][0]+" | "+ventas[contador][1]+" | "+ventas[contador][2]+" | "+ventas[contador][3]);
+            // Compara montoTotal de venta vendedor-sucursal por el 'monto mayor'
+            if (ventas[contador][sucursal]>montomayor) {
+                // Conversamos el mayor monto de venta.
+                montomayor = ventas[contador][sucursal];
+                // Conservamos el vendedor con la mayor venta.
+                vendedorconmayorventa = contador;
+            }
         }
+        System.out.println("El mejor vendedor de la sucursal "+sucursal_matrix[sucursal]+" ha sido el vendedor "+vendedor_matrix[vendedorconmayorventa]);
     }
+
+
 }
+
