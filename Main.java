@@ -6,21 +6,19 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int contadorsucursal;
-        int contadorvendedor;
-        double montomayor;
+        double contsucursal;
+        int indicesucursal;
+        int indicevendedor;
         double montoporsucursal;
         double precioproducto;
         int producto;
         String producto_matrix[];
         double producto_precio_matrix[];
         int sucursal;
-        int sucursalconmayorventa;
         String sucursal_matrix[];
         double total;
         double unidades;
         int vendedor;
-        int vendedorconmayorventa;
         String vendedor_matrix[];
         double ventas[][];
         // Se declara matriz de datos de 5 vendedores.
@@ -58,7 +56,7 @@ public class Main {
             System.out.println("Ingrese el codigo de Sucursal [0=Arequipa; 1= Trujillo; 2=Lima; 3=Cuzco; -1=Fin]");
             sucursal = sc.nextInt();
             // Se indica el ingreso de datos del producto.
-            System.out.println("Ingrese el codigo de producto  [0=Pollo; 1=Carne; 2=Cerdo; 3=Pavo; -1=Fin]");
+            System.out.println("Ingrese el codigo de producto [0=Pollo; 1=Carne; 2=Cerdo; 3=Pavo; -1=Fin]");
             producto = sc.nextInt();
             // Inicializamos la variable sumatoria de las ventas del vendedor en la sucursal.
             montoporsucursal = 0;
@@ -80,25 +78,22 @@ public class Main {
             System.out.println("Ingrese el codigo de vendedor [0=Percy; 1= Felipe; 2=Alejandra; 3=Jorge; 4=Juan; -1=Fin]");
             vendedor = sc.nextInt();
         }
-        System.out.println("Se termino el ingreso de datos");
+        System.out.println("Se termin el ingreso de datos");
         System.out.println("Generando indicador");
-        montomayor = 0;
-        vendedorconmayorventa = 0;
-        sucursalconmayorventa = 0;
-        // Recorremos el arreglo de vendedores
-        for (contadorvendedor=0;contadorvendedor<=4;contadorvendedor++) {
-            for (contadorsucursal=0;contadorsucursal<=3;contadorsucursal++) {
-                // Compara montoTotal de venta vendedor-sucursal por el 'monto mayor'
-                if (ventas[contadorvendedor][contadorsucursal]>montomayor) {
-                    // Conversamos el mayor monto de venta.
-                    montomayor = ventas[contadorvendedor][contadorsucursal];
-                    // Conservamos el vendedor con la mayor venta.
-                    vendedorconmayorventa = contadorvendedor;
-                    // Conservamos la sucursal con la mayor venta.
-                    sucursalconmayorventa = contadorsucursal;
+        for (indicesucursal=0;indicesucursal<=3;indicesucursal++) {
+            System.out.println(sucursal_matrix[indicesucursal]+": ");
+            contsucursal = 0;
+            for (indicevendedor=0;indicevendedor<=4;indicevendedor++) {
+                if (ventas[indicevendedor][indicesucursal]==0) {
+                    System.out.println("    "+vendedor_matrix[indicevendedor]);
+                    contsucursal = contsucursal+1;
                 }
             }
+            if (contsucursal==0) {
+                System.out.println("    => Todos los vendedores han realizado ventas");
+            } else {
+                System.out.println("Hay "+contsucursal+" vendedores que no realizaron ventas en la sucursal");
+            }
         }
-        System.out.println("El mayor importe de ventas lo ha obtenido el vendedor "+vendedor_matrix[vendedorconmayorventa]+" en la sucursal "+sucursal_matrix[sucursalconmayorventa]);
     }
 }
