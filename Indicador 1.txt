@@ -1,0 +1,65 @@
+Proceso Indicador01
+	// Se declara matriz de datos de 5 vendedores.
+	Dimension VENDEDOR_MATRIX(5)
+	VENDEDOR_MATRIX(0) = "Percy    "
+	VENDEDOR_MATRIX(1) = "Felipe   "
+	VENDEDOR_MATRIX(2) = "Alejandra"
+	VENDEDOR_MATRIX(3) = "Jorge    "
+	VENDEDOR_MATRIX(4) = "Juan     "
+	// Se declara matriz de datos de 4 sucursales.
+	Dimension SUCURSAL_MATRIX(4)
+	SUCURSAL_MATRIX(0) = "Arequipa"
+	SUCURSAL_MATRIX(1) = "Trujillo"
+	SUCURSAL_MATRIX(2) = "Lima"
+	SUCURSAL_MATRIX(3) = "Cuzco"
+	// Se declara matriz de datos de 4 productos.
+	Dimension PRODUCTO_MATRIX(4)
+	PRODUCTO_MATRIX(0) = "Pollo"
+	PRODUCTO_MATRIX(1) = "Carne"
+	PRODUCTO_MATRIX(2) = "Cerdo"
+	PRODUCTO_MATRIX(3) = "Pavo"
+	// Se declara matriz de datos de precios de los 4 productos declarados lineas arriba.
+	Dimension PRODUCTO_PRECIO_MATRIX(4)
+	PRODUCTO_PRECIO_MATRIX(0) = 12
+	PRODUCTO_PRECIO_MATRIX(1) = 20
+	PRODUCTO_PRECIO_MATRIX(2) = 25
+	PRODUCTO_PRECIO_MATRIX(3) = 6
+	// Arreglo donde se almacenará las ventas de vendedor por sucursal.
+	Dimension VENTAS(5, 4)	
+	// Se indica el ingreso de datos del vendedor.
+	Escribir "Ingrese el codigo de vendedor [0=Percy; 1= Felipe; 2=Alejandra; 3=Jorge; 4=Juan; -1=Fin]"
+	Leer vendedor	
+	// Si vendedor es -1 se dejará de ingresar datos de vendedores. 
+	Mientras vendedor <> -1 Hacer
+		Escribir "Ingrese el codigo de Sucursal [0=Arequipa; 1= Trujillo; 2=Lima; 3=Cuzco; -1=Fin]"
+		Leer sucursal
+		// Se indica el ingreso de datos del producto.
+		Escribir "Ingrese el codigo de producto [0=Pollo; 1=Carne; 2=Cerdo; 3=Pavo; -1=Fin]"
+		Leer producto		
+		// Inicializamos la variable sumatoria de las ventas del vendedor en la sucursal.
+		montoPorSucursal = 0
+		Mientras producto <> -1 Hacer
+			Escribir "Ingrese la cantidad vendida"
+			Leer unidades
+			// Recupera el precio del producto en el arreglo PRODUCTO_PRECIO_MATRIX.
+			precioProducto = PRODUCTO_PRECIO_MATRIX(producto)
+			// Calculamos el monto total de la venta del producto.
+			total = precioProducto * unidades
+			// Sumar el monto total en la variable montoPorSucursal
+			montoPorSucursal = montoPorSucursal + total		
+			Escribir "Ingrese el codigo de producto [0=Pollo; 1=Carne; 2=Cerdo; 3=Pavo; -1=Fin]"
+			Leer producto
+		Fin Mientras
+		// Grabamos la venta del vendedor en la sucursal actual para posterior uso en el indicador.
+		VENTAS(vendedor, sucursal) = montoPorSucursal
+		// Se vuelve a ingresar el vendedor.
+		Escribir "Ingrese el codigo de vendedor [0=Percy; 1= Felipe; 2=Alejandra; 3=Jorge; 4=Juan; -1=Fin]"
+		Leer vendedor
+	Fin Mientras
+	Escribir  "Se terminó el ingreso de datos"
+	Escribir  "Generando indicador"
+	Escribir "Vendedor   ", SUCURSAL_MATRIX(0), "  ", SUCURSAL_MATRIX(1), "  ", SUCURSAL_MATRIX(2), "  ", SUCURSAL_MATRIX(3)
+	Para contador<-0 Hasta 4 Con Paso 1 Hacer
+		Escribir VENDEDOR_MATRIX(contador), " | ",VENTAS(contador, 0), " | ",VENTAS(contador, 1), " | ",VENTAS(contador, 2), " | ",VENTAS(contador, 3)
+	Fin Para	
+FinProceso
